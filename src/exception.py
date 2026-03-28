@@ -1,10 +1,7 @@
 import sys
-import logging
-
-logging.basicConfig(level=logging.INFO)
+from src.logger import logging   # use your custom logger
 
 def error_message_detail(error):
-    # Extract traceback details
     exc_type, exc_obj, exc_tb = sys.exc_info()
     
     file_name = exc_tb.tb_frame.f_code.co_filename
@@ -24,3 +21,10 @@ class CustomException(Exception):
         return self.error_message
 
 
+# For testing purpose
+if __name__ == "__main__":
+    try:
+        a = 1 / 0
+    except Exception as e:
+        logging.info("Exception occurred")
+        raise CustomException(e)
