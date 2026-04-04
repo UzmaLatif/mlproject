@@ -2,3 +2,15 @@
 [2026-03-30 19:45:55,835] 16 root - INFO - Read the dataset as Dataframe
 [2026-03-30 19:45:55,913] 20 root - INFO - Train test split initiated
 [2026-03-30 19:45:56,041] 24 root - INFO - Ingestion of the data is complete
+[2026-03-31 18:32:07,503] 12 root - INFO - Entered the data ingestion method or component
+[2026-03-31 18:32:07,973] 16 root - INFO - Read the dataset as Dataframe
+[2026-03-31 18:32:08,005] 20 root - INFO - Train test split initiated
+[2026-03-31 18:32:08,086] 24 root - INFO - Ingestion of the data is complete
+[2026-03-31 18:41:00,997] 12 root - INFO - Entered the data ingestion method or component
+[2026-03-31 18:41:01,103] 16 root - INFO - Read the dataset as Dataframe
+[2026-03-31 18:41:01,128] 20 root - INFO - Train test split initiated
+[2026-03-31 18:41:01,189] 24 root - INFO - Ingestion of the data is complete
+[2026-03-31 18:50:19,344] 12 root - INFO - Entered the data ingestion method or component
+[2026-03-31 18:50:19,450] 16 root - INFO - Read the dataset as Dataframe
+[2026-03-31 18:50:19,477] 20 root - INFO - Train test split initiated
+[2026-03-31 18:50:19,533] 24 root - INFO - Ingestion of the data is complete
