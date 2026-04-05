@@ -1,6 +1,8 @@
 import os
 import pandas as pd
 from src.components.data_transformation import DataTransformation
+from src.components.model_trainer import ModelTrainerConfig
+from src.components.model_trainer import ModelTrainer
 
 class DataIngestion:
     def __init__(self):
@@ -34,8 +36,15 @@ if __name__ == "__main__":
 
     data_transform = DataTransformation()
     train_arr, test_arr, preprocessor_path = data_transform.initiate_data_transformation(
-        train_path, test_path
+    train_path, test_path
     )
 
     print("✅ Data Transformation completed")
     print("Preprocessor saved at:", preprocessor_path)
+
+    modeltrainer=ModelTrainer()
+    modeltrainer.initiate_model_trainer(train_arr, test_arr, preprocessor_path)
+    print("🚀 Starting Model Training")
+    print(modeltrainer.initiate_model_trainer(train_arr, test_arr, preprocessor_path))
+
+
