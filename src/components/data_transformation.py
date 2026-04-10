@@ -11,16 +11,25 @@ import os
 
 @dataclass
 class DataTransformationConfig:
-    # Always save preprocessor in src/artifact folder
+    # Preprocessor file path in root artifact folder
     preprocessor_obj_file_path = os.path.join(
-        os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+        os.getcwd(),  # project root
         "artifact",
         "preprocessor.pkl"
     )
 
 class DataTransformation:
     def __init__(self):
+        # Configuration
         self.data_transformation_config = DataTransformationConfig()
+
+        # Root artifact folder
+        self.artifact_dir = os.path.join(os.getcwd(), "artifact")
+        os.makedirs(self.artifact_dir, exist_ok=True)
+
+        # Paths for saving artifacts
+        self.preprocessor_path = os.path.join(self.artifact_dir, "preprocessor.pkl")
+        self.data_csv_path = os.path.join(self.artifact_dir, "data.csv")  # combined dataset
 
     def get_data_transformer_object(self):
         try:
@@ -67,9 +76,14 @@ class DataTransformation:
             # Read CSVs
             train_df = pd.read_csv(train_path)
             test_df = pd.read_csv(test_path)
-
             print("✅ Train and Test CSVs read successfully")
 
+            # Save combined dataset as data.csv
+            full_df = pd.concat([train_df, test_df], axis=0)
+            full_df.to_csv(self.data_csv_path, index=False)
+            print("✅ data.csv saved at:", self.data_csv_path)
+
+            # Preprocessing
             preprocessing_obj = self.get_data_transformer_object()
             target_column_name = "math score"
 
@@ -85,17 +99,13 @@ class DataTransformation:
             train_arr = np.c_[input_feature_train_arr, np.array(target_feature_train_df)]
             test_arr = np.c_[input_feature_test_arr, np.array(target_feature_test_df)]
 
-            # Ensure artifact folder exists
-            os.makedirs(os.path.dirname(self.data_transformation_config.preprocessor_obj_file_path), exist_ok=True)
-
-            print("📦 Saving preprocessor at:", self.data_transformation_config.preprocessor_obj_file_path)
-            save_object(
-                file_path=self.data_transformation_config.preprocessor_obj_file_path,
-                obj=preprocessing_obj
-            )
+            # Save preprocessor
+            os.makedirs(os.path.dirname(self.preprocessor_path), exist_ok=True)
+            print("📦 Saving preprocessor at:", self.preprocessor_path)
+            save_object(file_path=self.preprocessor_path, obj=preprocessing_obj)
             print("✅ Preprocessor saved successfully!")
 
-            return train_arr, test_arr, self.data_transformation_config.preprocessor_obj_file_path
+            return train_arr, test_arr, self.preprocessor_path
 
         except Exception as e:
             print("Error in initiate_data_transformation:", e)
